@@ -64,59 +64,43 @@ public class ProductServiceTests {
 		page = new PageImpl<>(List.of(product));
 
 		
+		/************************************************
+		 * CONFIGURAÇÕES DAS SIMULAÇÕES DE REPOSITORIES *
+		 ************************************************/
 		
-		/* Simulação do comportamento - cenário único
-		 * método:				repository.findAll() 
+		/* método:				repository.findAll() 
 		 * para testar:		service.findAllPaged() */
 		Mockito.when(repository.findAll((Pageable)ArgumentMatchers.any())).thenReturn(page);
 		
 		
-		
-		/* Simulação do comportamento
-		 * método:				repository.findById() 
+		/* método:				repository.findById() 
 		 * para testar:		service.findById() */
-		// cenário 1: id existente
-		Mockito.when(repository.findById(existingId)).thenReturn(Optional.of(product));
-		// cenário 2: id inexistente
-		Mockito.when(repository.findById(nonExistingId)).thenReturn(Optional.empty());
+		Mockito.when(repository.findById(existingId)).thenReturn(Optional.of(product)); // cenário 1: id existente
+		Mockito.when(repository.findById(nonExistingId)).thenReturn(Optional.empty()); // cenário 2: id inexistente
 		
 		
-		
-		/* Simulação do comportamento
-		 * método:				repository.save() 
+		/* método:				repository.save() 
 		 * para testar:		service.insert() and service.update() */
 		Mockito.when(repository.save(ArgumentMatchers.any())).thenReturn(product);
 		
 		
-		
-		/* Simulação do comportamento
-		 * método:				repository.getOne() 
+		/* método:				repository.getOne() 
 		 * para testar:		service.update() e copyDtoToEntity() */
-		// cenário 1: id existente
-		Mockito.when(repository.getOne(existingId)).thenReturn(product);
-		// cenário 2: id inexistente
-		Mockito.when(repository.getOne(nonExistingId)).thenThrow(EntityNotFoundException.class);
+		Mockito.when(repository.getOne(existingId)).thenReturn(product); // cenário 1: id existente
+		Mockito.when(repository.getOne(nonExistingId)).thenThrow(EntityNotFoundException.class); // cenário 2: id inexistente
 		
 		
-		/* Simulação do comportamento
-		 * método:				categoryRepository.getOne() 
+		/* método:				categoryRepository.getOne() 
 		 * para testar:		copyDtoToEntity() */
-		// cenário 1: id existente
-		Mockito.when(categoryRepository.getOne(existingId)).thenReturn(category);
-		// cenário 2: id inexistente
-		Mockito.when(categoryRepository.getOne(nonExistingId)).thenThrow(EntityNotFoundException.class);
+		Mockito.when(categoryRepository.getOne(existingId)).thenReturn(category); // cenário 1: id existente
+		Mockito.when(categoryRepository.getOne(nonExistingId)).thenThrow(EntityNotFoundException.class); // cenário 2: id inexistente
 		
-		
-		
-		/* Simulação do comportamento
-		 * método:				repository.deleteById() 
+				
+		/* método:				repository.deleteById() 
 		 * para testar:		service.delete() */
-		// cenário 1 - id existente
-		Mockito.doNothing().when(repository).deleteById(existingId);
-		// cenário 2 - id inexistente
-		Mockito.doThrow(EmptyResultDataAccessException.class).when(repository).deleteById(nonExistingId);
-		// cenário 3 - id dependente
-		Mockito.doThrow(DataIntegrityViolationException.class).when(repository).deleteById(dependentId);
+		Mockito.doNothing().when(repository).deleteById(existingId); // cenário 1 - id existente
+		Mockito.doThrow(EmptyResultDataAccessException.class).when(repository).deleteById(nonExistingId); // cenário 2 - id inexistente
+		Mockito.doThrow(DataIntegrityViolationException.class).when(repository).deleteById(dependentId); // cenário 3 - id dependente
 	
 	}
 	

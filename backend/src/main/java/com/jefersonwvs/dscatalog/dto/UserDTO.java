@@ -8,7 +8,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import com.jefersonwvs.dscatalog.entities.User;
-import com.jefersonwvs.dscatalog.services.validation.UserInsertValid;
 
 public class UserDTO implements Serializable {
 	

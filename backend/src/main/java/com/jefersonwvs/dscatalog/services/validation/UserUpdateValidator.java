@@ -11,10 +11,10 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerMapping;
 
+import com.jefersonwvs.dscatalog.controllers.exceptions.FieldMessage;
 import com.jefersonwvs.dscatalog.dto.UserUpdateDTO;
 import com.jefersonwvs.dscatalog.entities.User;
 import com.jefersonwvs.dscatalog.repositories.UserRepository;
-import com.jefersonwvs.dscatalog.resources.exceptions.FieldMessage;
 
 public class UserUpdateValidator implements ConstraintValidator<UserUpdateValid, UserUpdateDTO> {
 	
@@ -50,4 +50,5 @@ public class UserUpdateValidator implements ConstraintValidator<UserUpdateValid,
 		}
 		return list.isEmpty();
 	}
+	
 }

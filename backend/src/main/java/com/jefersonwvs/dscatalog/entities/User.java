@@ -31,10 +31,13 @@ public class User implements UserDetails, Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	private String firstName;
 	private String lastName;
+	
 	@Column(unique = true)
 	private String email;
+	
 	private String password;
 	
 	@ManyToMany(fetch = FetchType.EAGER) /* Carrega os roles junto com as demais informações do User*/
@@ -44,7 +47,6 @@ public class User implements UserDetails, Serializable {
 	private Set<Role> roles = new HashSet<>();
 	
 	public User() {
-		
 	}
 	
 	public User(Long id, String firstName, String lastName, String email, String password) {

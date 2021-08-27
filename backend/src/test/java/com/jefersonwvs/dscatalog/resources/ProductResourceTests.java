@@ -27,13 +27,14 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jefersonwvs.dscatalog.controllers.ProductController;
 import com.jefersonwvs.dscatalog.dto.ProductDTO;
 import com.jefersonwvs.dscatalog.services.ProductService;
 import com.jefersonwvs.dscatalog.services.exceptions.DatabaseException;
 import com.jefersonwvs.dscatalog.services.exceptions.ResourceNotFoundException;
 import com.jefersonwvs.dscatalog.tests.Factory;
 
-@WebMvcTest(ProductResource.class)
+@WebMvcTest(ProductController.class)
 public class ProductResourceTests {
 	
 	@Autowired

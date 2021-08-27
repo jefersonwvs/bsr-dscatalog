@@ -29,7 +29,6 @@ import com.jefersonwvs.dscatalog.repositories.UserRepository;
 import com.jefersonwvs.dscatalog.services.exceptions.DatabaseException;
 import com.jefersonwvs.dscatalog.services.exceptions.ResourceNotFoundException;
 
-
 @Service
 public class UserService implements UserDetailsService {
 

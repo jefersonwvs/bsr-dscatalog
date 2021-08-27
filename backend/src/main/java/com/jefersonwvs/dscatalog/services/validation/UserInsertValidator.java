@@ -8,10 +8,10 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.jefersonwvs.dscatalog.controllers.exceptions.FieldMessage;
 import com.jefersonwvs.dscatalog.dto.UserInsertDTO;
 import com.jefersonwvs.dscatalog.entities.User;
 import com.jefersonwvs.dscatalog.repositories.UserRepository;
-import com.jefersonwvs.dscatalog.resources.exceptions.FieldMessage;
 
 public class UserInsertValidator implements ConstraintValidator<UserInsertValid, UserInsertDTO> {
 	
@@ -40,4 +40,5 @@ public class UserInsertValidator implements ConstraintValidator<UserInsertValid,
 		}
 		return list.isEmpty();
 	}
+	
 }

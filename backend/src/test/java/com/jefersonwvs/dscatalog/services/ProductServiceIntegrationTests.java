@@ -41,7 +41,7 @@ public class ProductServiceIntegrationTests {
 		int number = 0;
 		int size = 10;
 		PageRequest pageRequest = PageRequest.of(number, size);
-		Page<ProductDTO> result = service.findAllPaged(pageRequest);
+		Page<ProductDTO> result = service.findAllPaged(pageRequest, 0L, "");
 		Assertions.assertFalse(result.isEmpty());
 		Assertions.assertEquals(number, result.getNumber());
 		Assertions.assertEquals(size, result.getSize());
@@ -53,7 +53,7 @@ public class ProductServiceIntegrationTests {
 		int number = 50;
 		int size = 10;
 		PageRequest pageRequest = PageRequest.of(number, size);
-		Page<ProductDTO> result = service.findAllPaged(pageRequest);
+		Page<ProductDTO> result = service.findAllPaged(pageRequest, 0L, "");
 		Assertions.assertTrue(result.isEmpty());
 	}
 	
@@ -63,7 +63,7 @@ public class ProductServiceIntegrationTests {
 		int size = 10;
 		Sort sort = Sort.by("name");
 		PageRequest pageRequest = PageRequest.of(number, size, sort);
-		Page<ProductDTO> result = service.findAllPaged(pageRequest);
+		Page<ProductDTO> result = service.findAllPaged(pageRequest, 0L, "");
 		Assertions.assertFalse(result.isEmpty());
 		Assertions.assertEquals("Macbook Pro", result.getContent().get(0).getName());
 		Assertions.assertEquals("PC Gamer", result.getContent().get(1).getName());

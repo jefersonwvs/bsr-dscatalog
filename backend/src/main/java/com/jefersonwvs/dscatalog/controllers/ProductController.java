@@ -30,10 +30,10 @@ public class ProductController {
 	private ProductService service;
 	
 	@GetMapping
-	public ResponseEntity<Page<ProductDTO>> findAllByCategory(Pageable pageable,
+	public ResponseEntity<Page<ProductDTO>> findAllPaged(Pageable pageable,
 			@RequestParam(value = "categoryId", defaultValue = "0") Long categoryId,
 			@RequestParam(value = "name", defaultValue = "") String name) {
-		Page<ProductDTO> list = service.findAllByCategoryPaged(pageable, categoryId, name.trim());
+		Page<ProductDTO> list = service.findAllPaged(pageable, categoryId, name.trim());
 		return ResponseEntity.ok().body(list);
 	}
 	

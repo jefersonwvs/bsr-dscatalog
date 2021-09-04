@@ -1,5 +1,7 @@
 package com.jefersonwvs.dscatalog.services;
 
+import static org.mockito.ArgumentMatchers.any;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -72,6 +74,8 @@ public class ProductServiceTests {
 		 * para testar:		service.findAllPaged() */
 		Mockito.when(repository.findAll((Pageable)ArgumentMatchers.any())).thenReturn(page);
 		
+		Mockito.when(repository.findAllPaged((List<Category>)any(), (String)any(), (Pageable)any())).thenReturn(page);
+		
 		
 		/* método:				repository.findById() 
 		 * para testar:		service.findById() */
@@ -106,11 +110,10 @@ public class ProductServiceTests {
 	
 	@Test
 	public void findAllPagedShouldReturnPage() {
-		Pageable pageable = PageRequest.of(0, 10);
-		Page<ProductDTO> result = service.findAllPaged(pageable);
+		Pageable pageable = PageRequest.of(0, 12);
+		Page<ProductDTO> result = service.findAllPaged(pageable, 0L, "");
 		
 		Assertions.assertNotNull(result);
-		Mockito.verify(repository, Mockito.times(1)).findAll(pageable);
 	}
 	
 	@Test

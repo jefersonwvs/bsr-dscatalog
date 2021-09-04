@@ -33,10 +33,14 @@ public class ProductService {
 	private CategoryRepository categoryRepository;
 
 	@Transactional(readOnly = true)
-	public Page<ProductDTO> findAllByCategoryPaged(Pageable pageable, Long categoryId, String name) {
+	public Page<ProductDTO> findAllPaged(Pageable pageable, Long categoryId, String name) {
 		List<Category> categories = (categoryId == 0 ) ? null : Arrays.asList(categoryRepository.getOne(categoryId));
-		Page<Product> list = repository.findAllByCategoryPaged(categories, name, pageable);
-		return list.map(x -> new ProductDTO(x));
+		/* Busca todos os produtos de uma dada categoria. Porém, a categoria não vem anexada*/
+		Page<Product> page = repository.findAllPaged(categories, name, pageable);
+		/* Chamada seca que busca as categorias dos produtos todas de uma só vez,
+		 * evitando, assim, o problema das N+1 consultas */
+		repository.findProductCategories(page.getContent());
+		return page.map(entity -> new ProductDTO(entity, entity.getCategories()));
 	}
 
 	@Transactional(readOnly = true)

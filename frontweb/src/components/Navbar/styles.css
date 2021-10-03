@@ -1,6 +1,6 @@
 .main-nav {
    min-height: 70px;
-   padding-left: 40px;
+   padding: 20px 10px;
 }
 
 .nav-logo-text, .nav-logo-text:hover {

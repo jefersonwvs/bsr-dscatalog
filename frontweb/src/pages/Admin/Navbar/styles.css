@@ -38,15 +38,9 @@ ul {
    margin: 0px;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 768px) {
    .admin-nav-item {
-      width: 180px;
-   }
-}
-
-@media (min-width: 1020px) {
-   .admin-nav-item {
-      width: 280px;
+      min-width: 220px;
    }
 }
 

@@ -1,9 +1,28 @@
 import './styles.css';
 import { ReactComponent as ArrowIcon } from 'assets/images/arrow.svg';
 import ProductPrice from 'components/ProductPrice';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { Product } from 'types/product';
+import axios from 'axios';
+import { BASE_URL } from 'utils/requests';
+import { useEffect, useState } from 'react';
+
+type UrlParams = {
+   productId: string;
+};
 
 const ProductDetails = () => {
+
+   const { productId } = useParams<UrlParams>();
+
+   const [product, setProduct] = useState<Product>();
+
+   useEffect(() => {
+      axios.get(`${BASE_URL}/products/${productId}`).then((response) => {
+         setProduct(response.data as Product);
+      });
+   }, [productId]);
+
    return (
       <div className="product-details-container">
          <div className="base-card product-details-card">
@@ -18,29 +37,19 @@ const ProductDetails = () => {
                {/* col-xl-6: colunas que ocupam metade da tela */}
                <div className="col-xl-6">
                   <div className="img-container">
-                     <img
-                        src="https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/1-big.jpg"
-                        alt="product-img"
-                     />
+                     <img src={product?.imgUrl} alt={product?.name} />
                   </div>
                   <div className="name-price-container">
-                     <h1>Nome do produto</h1>
-                     <ProductPrice price={192.46}></ProductPrice>
+                     <h1>{product?.name}</h1>
+                     {product && (
+                        <ProductPrice price={product?.price}></ProductPrice>
+                     )}
                   </div>
                </div>
                <div className="col-xl-6">
                   <div className="description-container">
                      <h2>Descrição do produto</h2>
-                     <p>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing
-                        elit. Recusandae veniam tempore illum necessitatibus,
-                        hic officia commodi laboriosam quibusdam at dolorem
-                        pariatur libero autem, ipsa assumenda. Beatae voluptate
-                        recusandae pariatur omnis odit itaque optio, commodi
-                        maxime, quidem at nobis fuga ut similique, asperiores
-                        aliquam nihil. Totam provident praesentium vitae maiores
-                        excepturi.
-                     </p>
+                     <p>{product?.description}</p>
                   </div>
                </div>
             </div>

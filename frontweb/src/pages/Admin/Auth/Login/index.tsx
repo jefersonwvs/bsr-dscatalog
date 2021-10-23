@@ -53,8 +53,8 @@ const Login = () => {
                      },
                   })}
                   type="text"
-                  className="form-control base-input"
-                  placeholder="Email"
+                  className={`form-control base-input ${errors.username ? 'is-invalid' : ''}`}
+                  placeholder="E-mail"
                   name="username"
                />
                <div className="invalid-feedback d-block">
@@ -68,8 +68,8 @@ const Login = () => {
                      required: 'Campo obrigatório',
                   })}
                   type="password"
-                  className="form-control base-input "
-                  placeholder="Password"
+                  className={`form-control base-input ${errors.password ? 'is-invalid' : ''}`}
+                  placeholder="Senha"
                   name="password"
                />
                <div className="invalid-feedback d-block">

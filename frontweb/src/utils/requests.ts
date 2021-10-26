@@ -26,7 +26,7 @@ export const requestBackendLogin = (loginData: LoginData) => {
       method: 'POST',
       baseURL: BASE_URL,
       url: '/oauth/token',
-      data: data,
       headers: headers,
+      data: data,
    });
 };

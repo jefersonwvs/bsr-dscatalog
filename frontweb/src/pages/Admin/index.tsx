@@ -1,5 +1,6 @@
-import Navbar from './Navbar';
 import { Switch, Route } from 'react-router';
+import Navbar from './Navbar';
+
 import './styles.css';
 
 const Admin = () => {

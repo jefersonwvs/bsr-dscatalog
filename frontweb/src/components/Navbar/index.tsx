@@ -1,8 +1,9 @@
-import './styles.css';
-import 'bootstrap/js/src/collapse.js';
 import { Link, NavLink } from 'react-router-dom';
 
-const Navbar = function () {
+import 'bootstrap/js/src/collapse.js';
+import './styles.css';
+
+const Navbar = () => {
    return (
       <nav className="navbar navbar-expand-md navbar-dark bg-primary main-nav">
          <div className="container-fluid">

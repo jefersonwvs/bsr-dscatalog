@@ -1,13 +1,15 @@
-import './index.css';
-
 import ProductPrice from 'components/ProductPrice';
 import { Product } from 'types/product';
+
+import './styles.css';
 
 type Props = {
    product: Product;
 };
 
-const ProductCard = ({ product }: Props) => {
+const ProductCard = (props: Props) => {
+   const { product } = props;
+   
    return (
       <div className="base-card product-card">
          <div className="card-top-container">

@@ -1,13 +1,9 @@
-import './assets/styles/custom.scss';
-import './App.css';
+import './assets/styles/custom.scss';  // Custom styles for Bootstrap
+import './App.css';                    // Global styles
 import Routes from 'Routes';
 
-const App = function () {
-   return (
-      <>
-         <Routes />
-      </>
-   );
+const App = () => {
+   return <Routes />;
 };
 
 export default App;

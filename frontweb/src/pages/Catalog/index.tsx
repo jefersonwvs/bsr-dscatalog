@@ -1,13 +1,15 @@
-import './styles.css';
+import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios, { AxiosRequestConfig } from 'axios';
+
 import ProductCard from 'components/ProductCard';
 import { Product } from 'types/product';
-import { Link } from 'react-router-dom';
 import Pagination from 'components/Pagination';
-import { useState, useEffect } from 'react';
 import { SpringPage } from 'types/vendor/spring';
-import axios, { AxiosRequestConfig } from 'axios';
 import { BASE_URL } from 'utils/requests';
 import CardLoader from './CardLoader';
+
+import './styles.css';
 
 const Catalog = () => {
    const [page, setPage] = useState<SpringPage<Product>>();
@@ -38,6 +40,7 @@ const Catalog = () => {
          <div className="row catalog-title-container">
             <h1>Catálogo de produtos</h1>
          </div>
+
          <div className="row">
             {isLoading ? (
                <CardLoader />
@@ -56,6 +59,7 @@ const Catalog = () => {
                })
             )}
          </div>
+
          <div className="row">
             <Pagination />
          </div>

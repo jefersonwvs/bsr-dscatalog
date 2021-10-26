@@ -1,13 +1,15 @@
-import './styles.css';
-import { ReactComponent as ArrowIcon } from 'assets/images/arrow.svg';
-import ProductPrice from 'components/ProductPrice';
-import { Link, useParams } from 'react-router-dom';
-import { Product } from 'types/product';
-import axios from 'axios';
-import { BASE_URL } from 'utils/requests';
 import { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
+
+import { ReactComponent as ArrowIcon } from 'assets/images/arrow.svg';
+import { Product } from 'types/product';
+import { BASE_URL } from 'utils/requests';
+import ProductPrice from 'components/ProductPrice';
 import ProductInfoLoader from './ProductInfoLoader';
 import ProductDetailsLoader from './ProductDetailsLoader';
+
+import './styles.css';
 
 type UrlParams = {
    productId: string;

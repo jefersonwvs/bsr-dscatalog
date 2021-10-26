@@ -1,11 +1,10 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { requestBackendLogin } from 'utils/requests';
 import { useForm } from 'react-hook-form';
-
 import ButtonIcon from 'components/ButtonIcon';
 
 import './styles.css';
-import { useState } from 'react';
 
 type FormData = {
    username: string;

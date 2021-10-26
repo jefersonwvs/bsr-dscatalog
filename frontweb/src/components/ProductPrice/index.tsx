@@ -1,11 +1,14 @@
 import { formatPrice } from 'utils/formatters';
-import './index.css';
+
+import './styles.css';
 
 type Props = {
    price: number;
 };
 
-const ProductPrice = ({ price }: Props) => {
+const ProductPrice = (props: Props) => {
+   const { price } = props;
+
    return (
       <div className="product-price-container">
          <span>R$</span>

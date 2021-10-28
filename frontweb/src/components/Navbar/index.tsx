@@ -2,35 +2,26 @@ import { Link, NavLink } from 'react-router-dom';
 
 import 'bootstrap/js/src/collapse.js';
 import './styles.css';
-import {
-   getTokenData,
-   isAuthenticated,
-   removeAuthData,
-   TokenData,
-} from 'utils/requests';
-import { useEffect, useState } from 'react';
+import { getTokenData, isAuthenticated, removeAuthData } from 'utils/requests';
+import { useEffect, useContext } from 'react';
 import history from 'utils/history';
-
-type AuthData = {
-   authenticated: boolean;
-   tokenData?: TokenData;
-};
+import { AuthContext } from 'AuthContext';
 
 const Navbar = () => {
-   const [authData, setAuthData] = useState<AuthData>({ authenticated: false });
+   const { authContextData, setAuthContextData } = useContext(AuthContext);
 
    useEffect(() => {
       if (isAuthenticated()) {
-         setAuthData({ authenticated: true, tokenData: getTokenData() });
+         setAuthContextData({ authenticated: true, tokenData: getTokenData() });
       } else {
-         setAuthData({ authenticated: false });
+         setAuthContextData({ authenticated: false });
       }
-   }, []);
+   }, [setAuthContextData]);
 
    const handleClickLogout = function (event: React.MouseEvent) {
       event.preventDefault();
       removeAuthData();
-      setAuthData({ authenticated: false });
+      setAuthContextData({ authenticated: false });
       history.replace('/');
    };
 
@@ -74,12 +65,14 @@ const Navbar = () => {
             </div>
 
             <div className="nav-login-logout">
-               {authData.authenticated ? (
+               {authContextData.authenticated ? (
                   <>
-                  <span className="nav-username">{authData.tokenData?.user_name}</span>
-                  <a href="#logout" onClick={handleClickLogout}>
-                     LOGOUT
-                  </a>
+                     <span className="nav-username">
+                        {authContextData.tokenData?.user_name}
+                     </span>
+                     <a href="#logout" onClick={handleClickLogout}>
+                        LOGOUT
+                     </a>
                   </>
                ) : (
                   <Link to="/admin/auth">LOGIN</Link>

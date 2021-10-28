@@ -2,10 +2,12 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as MainImage } from 'assets/images/main-image.svg';
 import ButtonIcon from 'components/ButtonIcon';
 import './styles.css';
+import { isAuthenticated } from 'utils/requests';
 
 const Home = function () {
    return (
       <div className="home-container">
+         <h1>{isAuthenticated() ? 'Autenticado' : 'Não autenticado'}</h1>
          <div className="base-card home-card">
             <div className="home-content-container">
                <div>
@@ -17,7 +19,7 @@ const Home = function () {
                </div>
                <div>
                   <Link to="/products">
-                     <ButtonIcon text="Inicie agora a sua busca"/>
+                     <ButtonIcon text="Inicie agora a sua busca" />
                   </Link>
                </div>
             </div>

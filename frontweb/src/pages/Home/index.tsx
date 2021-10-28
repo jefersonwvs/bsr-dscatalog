@@ -7,7 +7,6 @@ import { isAuthenticated } from 'utils/requests';
 const Home = function () {
    return (
       <div className="home-container">
-         <h1>{isAuthenticated() ? 'Autenticado' : 'Não autenticado'}</h1>
          <div className="base-card home-card">
             <div className="home-content-container">
                <div>

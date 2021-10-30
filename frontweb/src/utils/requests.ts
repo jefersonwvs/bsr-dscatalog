@@ -112,7 +112,39 @@ export const getTokenData = () => {
    }
 };
 
-export function isAuthenticated(): boolean {
+export const isAuthenticated = (): boolean => {
    const tokenData = getTokenData();
    return tokenData && tokenData.exp * 1000 > Date.now() ? true : false;
-}
+};
+
+
+/*
+ * Função que verifica se o usuário logado (tokenData)
+ * possui algum dos papéis necessários para acessar algum recurso.
+ * Parâmetros:
+ *    - roles: Role[] --> lista de papéis autorizados para dado recurso. 
+ * */
+
+
+/**
+ * Returns true if the logedd-in user has any role from a list of roles
+ * needed to access a resource.
+ * @param roles - List of roles
+ * @returns true or false
+ */
+export const hasAnyRoles = (roles: Role[]): boolean => {
+   if (roles.length === 0) { // O recurso é acessível sem considerar papéis
+      return true;
+   }
+   const tokenData = getTokenData();
+   if (tokenData !== undefined) {
+      for (let i = 0; i < roles.length; i++) {
+         if (tokenData.authorities.includes(roles[i])) {
+            /* Se pelo menos um dos papéis do usuário logado estão
+               incluídos na lista de papéis autorizados, retorna verdadeiro. */
+            return true;
+         }
+      }
+   }
+   return false;
+};

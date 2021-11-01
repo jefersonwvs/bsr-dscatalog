@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as MainImage } from 'assets/images/main-image.svg';
 import ButtonIcon from 'components/ButtonIcon';
 import './styles.css';
-import { isAuthenticated } from 'utils/requests';
 
 const Home = function () {
    return (

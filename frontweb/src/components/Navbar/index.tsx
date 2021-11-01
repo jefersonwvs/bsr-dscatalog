@@ -1,8 +1,9 @@
 import { Link, NavLink } from 'react-router-dom';
-import { getTokenData, isAuthenticated, removeAuthData } from 'utils/requests';
 import { useEffect, useContext } from 'react';
-import history from 'utils/history';
 import { AuthContext } from 'AuthContext';
+import history from 'utils/history';
+import { removeAuthData } from 'utils/storage';
+import { getTokenData, isAuthenticated } from 'utils/auth';
 
 import 'bootstrap/js/src/collapse.js';
 import './styles.css';

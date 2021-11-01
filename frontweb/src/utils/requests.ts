@@ -3,18 +3,38 @@ import axios, { AxiosRequestConfig } from 'axios';
 import history from './history';
 import jwtDecode from 'jwt-decode';
 
+/**
+ * URL of the backend application.
+ */
 export const BASE_URL =
    process.env.REACT_APP_BACKEND_URL ?? 'http://localhost:8080';
+
+/**
+ * Id for the client application to access the server application.
+ */
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID ?? 'dscatalog';
+
+/**
+ * Password for the client application to access the server application.
+ */
 const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET ?? 'dscatalog123';
 
+/**
+ * Default `key` used to storage authentication data on `localStorage`.
+ */
 const tokenKey = 'authData';
 
+/**
+ * Type to store data needed for login.
+ */
 type LoginData = {
    username: string;
    password: string;
 };
 
+/**
+ * Type to store response data from login.
+ */
 export type LoginResponse = {
    access_token: string;
    token_type: string;
@@ -24,10 +44,14 @@ export type LoginResponse = {
    userId: number;
 };
 
-/*
- * Some properties from token that is necessary for frontweb.
- * */
-type Role = 'ROLE_OPERATOR' | 'ROLE_ADMIN'; // "enum"
+/**
+ * Type to store a role.
+ */
+export type Role = 'ROLE_OPERATOR' | 'ROLE_ADMIN';
+
+/**
+ * Type to store data from token.
+ */
 export type TokenData = {
    exp: number;
    user_name: string;
@@ -88,22 +112,20 @@ axios.interceptors.request.use(
 
 // Add a response interceptor
 axios.interceptors.response.use(
-   function (response) {
+   (response) => {
       return response;
    },
-   function (error) {
-      if (error.response.status === 401 || error.response.status === 403) {
+   (error) => {
+      if (error.response.status === 401) {
          history.push('/admin/auth');
       }
-
       return Promise.reject(error);
    }
 );
 
-/*
- * This function returns a TokenData when access_token is valid
- * or undefined otherwise.
- **/
+/**
+ * @returns a `TokenData` object when a user is logged-in or `undefined` otherwise.
+ */
 export const getTokenData = () => {
    try {
       return jwtDecode(getAuthData().access_token) as TokenData;
@@ -112,19 +134,13 @@ export const getTokenData = () => {
    }
 };
 
+/**
+ * @returns `true` if user is authenticade or `false`, otherwise
+ */
 export const isAuthenticated = (): boolean => {
    const tokenData = getTokenData();
    return tokenData && tokenData.exp * 1000 > Date.now() ? true : false;
 };
-
-
-/*
- * Função que verifica se o usuário logado (tokenData)
- * possui algum dos papéis necessários para acessar algum recurso.
- * Parâmetros:
- *    - roles: Role[] --> lista de papéis autorizados para dado recurso. 
- * */
-
 
 /**
  * Returns true if the logedd-in user has any role from a list of roles
@@ -133,7 +149,8 @@ export const isAuthenticated = (): boolean => {
  * @returns true or false
  */
 export const hasAnyRoles = (roles: Role[]): boolean => {
-   if (roles.length === 0) { // O recurso é acessível sem considerar papéis
+   if (roles.length === 0) {
+      // O recurso é acessível sem considerar papéis
       return true;
    }
    const tokenData = getTokenData();

@@ -1,4 +1,5 @@
-import './App.css';
+import './assets/styles/custom.scss'; // bootstrap theme
+import './App.css'; // global styles
 
 function App() {
   return (

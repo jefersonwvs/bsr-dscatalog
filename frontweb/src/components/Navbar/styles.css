@@ -27,3 +27,9 @@
   color: #fff;
   font-weight: bold;
 }
+
+@media (min-width: 992px) {
+  .main-nav {
+    padding-left: 30px;
+  }
+}

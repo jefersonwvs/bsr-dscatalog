@@ -1,0 +1,53 @@
+.home-container {
+  padding: 10px;
+  font-size: 20px;
+  text-align: center;
+
+  border: 1px solid red;
+}
+
+.home-card {
+  background-color: #ffffff;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column-reverse;
+
+  border: 1px solid orange;
+}
+
+.home-content-container {
+  padding: 10px 10px 50px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid blue;
+}
+
+.home-content-container h1 {
+  font-size: 1em;
+  width: 260px;
+  margin-bottom: 15px;
+}
+
+.home-content-container p {
+  font-size: 0.6em;
+  width: 260px;
+  color: #9e9e9e;
+  margin-bottom: 30px;
+}
+
+.home-image-container {
+  padding: 50px 15px;
+
+  border: 1px solid brown;
+}
+
+.home-image-container svg {
+  width: 100%; /* main-image.svg will take 100% of its container width */
+  height: auto;
+
+  border: 1px solid greenyellow;
+}

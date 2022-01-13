@@ -11,7 +11,7 @@ const Home = function () {
       <Navbar />
 
       <div className="home-container">
-        <div className="home-card">
+        <div className="base-card home-card">
           <div className="home-content-container">
             <div>
               <h1>Conheça o melhor catálogo de produtos</h1>

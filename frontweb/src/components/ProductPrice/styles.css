@@ -1,0 +1,19 @@
+.product-price-container {
+  display: flex;
+  align-items: center;
+}
+
+.product-price-currency {
+  font-size: 18px;
+  color: #9e9e9e;
+  margin-right: 5px;
+}
+
+.product-price-value {
+  display: flex;
+  align-items: baseline;
+}
+
+.product-price-value-integer {
+  font-size: 32px;
+}

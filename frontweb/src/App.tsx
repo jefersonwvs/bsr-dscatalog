@@ -1,9 +1,10 @@
-import Home from 'pages/Home';
+import Catalog from 'pages/Catalog';
+
 import './assets/styles/custom.scss'; // bootstrap theme
 import './App.css'; // global styles
 
 function App() {
-  return <Home />;
+  return <Catalog />;
 }
 
 export default App;

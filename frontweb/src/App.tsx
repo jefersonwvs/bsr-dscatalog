@@ -1,10 +1,10 @@
-import Catalog from 'pages/Catalog';
+import Routes from 'Routes';
 
 import './assets/styles/custom.scss'; // bootstrap theme
 import './App.css'; // global styles
 
 function App() {
-  return <Catalog />;
+  return <Routes />;
 }
 
 export default App;

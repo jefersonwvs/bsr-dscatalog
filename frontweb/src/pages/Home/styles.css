@@ -30,9 +30,13 @@
   margin-bottom: 30px;
 }
 
-.home-content-container button {
+.home-content-btn {
   width: 260px;
   height: 50px;
+}
+
+.home-content-btn h6 {
+  font-size: 14px;
 }
 
 .home-image-container {
@@ -59,8 +63,12 @@
     width: 500px;
   }
 
-  .home-content-container button {
-    width: 500px;
+  .home-content-btn {
+    width: 400px;
+  }
+
+  .home-content-btn h6 {
+    font-size: 18px;
   }
 
   .home-image-container svg {

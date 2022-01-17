@@ -18,6 +18,7 @@
 
 .btn-icon-container {
   background-color: rgba(38, 50, 56, 0.5);
+  color: #fff;
   width: 20%;
   height: 100%;
   display: flex;

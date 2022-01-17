@@ -1,3 +1,4 @@
+import { formatPrice } from 'utils/formatters';
 import './styles.css';
 
 type Props = {
@@ -7,9 +8,7 @@ type Props = {
 const ProductPrice = function (props: Props) {
   const { price } = props;
 
-  const priceStr = price.toLocaleString('pt-BR');
-
-  const [integer = '0', decimal = '00'] = priceStr.split(',');
+  const [integer, decimal] = formatPrice(price).split(',');
 
   return (
     <div className="product-price-container">

@@ -54,6 +54,8 @@
 @media (min-width: 1400px) {
   .auth-container {
     padding: 40px;
+    display: flex;
+    align-items: center;
   }
 
   .auth-banner-container {

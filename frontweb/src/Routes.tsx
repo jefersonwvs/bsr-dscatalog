@@ -26,6 +26,8 @@ const Routes = function () {
           <ProductDetails />
         </Route>
         
+        {/* Com o `<Redirect />`, o componente `<Auth />` é renderizado junto com o
+          * componente `<Login />` que é uma de suas sub-rotas. */}
         <Redirect from="/admin/auth" to="/admin/auth/login" exact />
         <Route path="/admin/auth">
           <Auth />

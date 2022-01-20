@@ -50,7 +50,9 @@ const Login = () => {
               },
             })}
             type="text"
-            className="form-control base-input"
+            className={`form-control base-input ${
+              errors.username ? 'is-invalid' : ''
+            }`}
             placeholder="E-mail"
             name="username"
           />
@@ -62,7 +64,9 @@ const Login = () => {
           <input
             {...register('password', { required: 'Campo obrigatório' })}
             type="password"
-            className="form-control base-input "
+            className={`form-control base-input ${
+              errors.password ? 'is-invalid' : ''
+            }`}
             placeholder="Senha"
             name="password"
           />

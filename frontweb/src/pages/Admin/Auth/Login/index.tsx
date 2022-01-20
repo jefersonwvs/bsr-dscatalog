@@ -3,7 +3,12 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import ButtonIcon from 'components/ButtonIcon';
-import { requestBackendLogin } from 'utils/requests';
+import {
+  getAuthData,
+  LoginResponse,
+  requestBackendLogin,
+  saveAuthData,
+} from 'utils/requests';
 
 import './styles.css';
 
@@ -24,8 +29,11 @@ const Login = () => {
   const onSubmit = function (formData: FormData) {
     requestBackendLogin(formData)
       .then((response) => {
+        saveAuthData(response.data as LoginResponse);
+        const token = getAuthData().access_token;
+        console.log(token);
+
         setHasError(false);
-        console.log(response.data);
       })
       .catch((error) => {
         setHasError(true);

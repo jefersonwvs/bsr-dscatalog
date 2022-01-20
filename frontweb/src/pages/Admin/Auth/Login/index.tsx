@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
@@ -12,14 +13,18 @@ type FormData = {
 };
 
 const Login = () => {
+  const [hasError, setHasError] = useState<boolean>(false);
+
   const { register, handleSubmit } = useForm();
 
   const onSubmit = function (formData: FormData) {
     requestBackendLogin(formData)
       .then((response) => {
+        setHasError(false);
         console.log(response.data);
       })
       .catch((error) => {
+        setHasError(true);
         console.error(error);
       });
   };
@@ -27,6 +32,9 @@ const Login = () => {
   return (
     <div className="base-card login-card">
       <h1>LOGIN</h1>
+      {hasError && (
+        <div className="mb-4 alert alert-danger">Credenciais inválidas</div>
+      )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <input

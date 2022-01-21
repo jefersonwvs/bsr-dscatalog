@@ -1,5 +1,7 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import qs from 'qs';
+
+import history from './history';
 
 export const BASE_URL =
   process.env.REACT_APP_BACKEND_URL ?? 'http://localhost:8080';
@@ -65,3 +67,26 @@ export const requestBackend = function (incompleteConfig: AxiosRequestConfig) {
 
   return axios(config);
 };
+
+// Add a request interceptor
+axios.interceptors.request.use(
+  (config) => {
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// Add a response interceptor
+axios.interceptors.response.use(
+  (response: AxiosResponse) => {
+    return response;
+  },
+  (error: AxiosError) => {
+    if (error.response?.status === 401 || error.response?.status === 403) {
+      history.push('/admin/auth/login');
+    }
+    return Promise.reject(error);
+  }
+);

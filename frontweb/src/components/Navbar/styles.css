@@ -1,6 +1,6 @@
 .main-nav {
   min-height: 70px;
-  padding-left: 10px;
+  padding: 0px 10px;
 }
 
 .nav-logo-text,
@@ -28,8 +28,28 @@
   font-weight: bold;
 }
 
+.nav-login-logout {
+  display: none;
+  color: #fff;
+}
+
+.nav-username {
+  display: none;
+  margin-right: 15px;
+}
+
+@media (min-width: 768px) {
+  .nav-login-logout {
+    display: unset;
+  }
+}
+
 @media (min-width: 992px) {
   .main-nav {
-    padding-left: 30px;
+    padding: 0 10px 0 30px;
+  }
+
+  .nav-username {
+    display: unset;
   }
 }

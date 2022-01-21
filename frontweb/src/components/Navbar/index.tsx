@@ -57,7 +57,7 @@ const Navbar = function () {
         </button>
 
         <div className="collapse navbar-collapse" id="dscatalog-navbar">
-          <ul className="navbar-nav offset-md-4 main-menu">
+          <ul className="navbar-nav offset-md-3 main-menu">
             <li>
               <NavLink to="/" exact activeClassName="active">
                 HOME
@@ -76,10 +76,12 @@ const Navbar = function () {
           </ul>
         </div>
 
-        <div>
+        <div className="nav-login-logout">
           {authData.authenticated ? (
             <>
-              <span>{authData.tokenData?.user_name}</span>
+              <span className="nav-username">
+                {authData.tokenData?.user_name}
+              </span>
               <a href="#logout" onClick={handleLogoutClick}>
                 LOGOUT
               </a>

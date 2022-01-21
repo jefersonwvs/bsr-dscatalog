@@ -56,6 +56,10 @@ export const getAuthData = function () {
   return JSON.parse(localStorage.getItem(tokenKey) ?? '{}') as LoginResponse;
 };
 
+export const removeAuthData = function () {
+  localStorage.removeItem(tokenKey);
+};
+
 export const requestBackend = function (incompleteConfig: AxiosRequestConfig) {
   const headers = incompleteConfig.withCredentials
     ? {
@@ -94,7 +98,7 @@ axios.interceptors.response.use(
 
 type Role = 'ROLE_OPERATOR' | 'ROLE_ADMIN';
 
-type TokenData = {
+export type TokenData = {
   exp: number;
   user_name: string;
   authorities: Role[];

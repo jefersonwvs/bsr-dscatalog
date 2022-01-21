@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import ButtonIcon from 'components/ButtonIcon';
@@ -20,6 +20,8 @@ type FormData = {
 const Login = () => {
   const [hasError, setHasError] = useState<boolean>(false);
 
+  const history = useHistory();
+
   const {
     register,
     handleSubmit,
@@ -32,6 +34,7 @@ const Login = () => {
         saveAuthData(response.data as LoginResponse);
         const token = getAuthData().access_token;
         console.log(token);
+        history.push('/admin');
 
         setHasError(false);
       })

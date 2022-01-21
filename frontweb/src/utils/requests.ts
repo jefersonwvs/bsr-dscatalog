@@ -52,3 +52,16 @@ export const saveAuthData = function (loginResponse: LoginResponse) {
 export const getAuthData = function () {
   return JSON.parse(localStorage.getItem(tokenKey) ?? '{}') as LoginResponse;
 };
+
+export const requestBackend = function (incompleteConfig: AxiosRequestConfig) {
+  const headers = incompleteConfig.withCredentials
+    ? {
+        Authorization: `Bearer ${getAuthData().access_token}`,
+        ...incompleteConfig.headers,
+      }
+    : incompleteConfig.headers;
+
+  const config = { baseURL: BASE_URL, ...incompleteConfig, headers };
+
+  return axios(config);
+};

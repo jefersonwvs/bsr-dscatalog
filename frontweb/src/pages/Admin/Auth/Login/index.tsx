@@ -3,13 +3,10 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import ButtonIcon from 'components/ButtonIcon';
-import {
-  getTokenData,
-  LoginResponse,
-  requestBackendLogin,
-  saveAuthData,
-} from 'utils/requests';
 import { AuthContext } from 'AuthContext';
+import { requestBackendLogin } from 'utils/requests';
+import { LoginResponse, saveAuthData } from 'utils/storage';
+import { getTokenData } from 'utils/auth';
 
 import './styles.css';
 

@@ -4,17 +4,36 @@ import qs from 'qs';
 import history from './history';
 import { getAuthData } from './storage';
 
+/**
+ * URL da aplicação servidora.
+ */
 export const BASE_URL =
   process.env.REACT_APP_BACKEND_URL ?? 'http://localhost:8080';
 
+/**
+ * Identificador válido para a aplicação cliente conectar-se à
+ * aplicação servidora.
+ */
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID ?? 'dscatalog';
+
+/**
+ * Senha válida para a aplicação cliente conectar-se à aplicação
+ * servidora.
+ */
 const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET ?? 'dscatalog123';
 
+/**
+ * Tipo de dados que armazena as credenciais de acesso de um
+ * usuário.
+ */
 type LoginData = {
   username: string;
   password: string;
 };
 
+/**
+ * Função que faz uma requisição de login ao back-end.
+ */
 export const requestBackendLogin = function (loginData: LoginData) {
   const headers = {
     Authorization: 'Basic ' + window.btoa(CLIENT_ID + ':' + CLIENT_SECRET),
@@ -38,6 +57,9 @@ export const requestBackendLogin = function (loginData: LoginData) {
   return axios(request);
 };
 
+/**
+ * Função que faz requisições ao back-end.
+ */
 export const requestBackend = function (incompleteConfig: AxiosRequestConfig) {
   const headers = incompleteConfig.withCredentials
     ? {
@@ -51,7 +73,9 @@ export const requestBackend = function (incompleteConfig: AxiosRequestConfig) {
   return axios(config);
 };
 
-// Add a request interceptor
+/**
+ * Interceptador de requisição.
+ */
 axios.interceptors.request.use(
   (config) => {
     return config;
@@ -61,7 +85,9 @@ axios.interceptors.request.use(
   }
 );
 
-// Add a response interceptor
+/**
+ * Interceptador de resposta.
+ */
 axios.interceptors.response.use(
   (response: AxiosResponse) => {
     return response;

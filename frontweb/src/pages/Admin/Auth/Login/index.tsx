@@ -20,18 +20,26 @@ type LocationState = {
 };
 
 const Login = () => {
+  // Hook para gerenciar estado de erro
   const [hasError, setHasError] = useState<boolean>(false);
+
+  // Hook para gerenciar acesso ao contexto global
   const { setAuthContextData } = useContext(AuthContext);
+
+  // Hook para gerenciar histórico
   const history = useHistory();
+
+  // Hook para gerenciar rotas
   const location = useLocation<LocationState>();
 
-  const { from } = location.state || { from: { pathname: '/admin' } };
-
+  // Hook para trabalhar com formulários
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
+
+  const { from } = location.state || { from: { pathname: '/admin' } };
 
   const onSubmit = function (formData: FormData) {
     requestBackendLogin(formData)

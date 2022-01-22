@@ -10,6 +10,7 @@ import 'bootstrap/js/src/collapse.js';
 import './styles.css';
 
 const Navbar = function () {
+  // Hook para gerenciar acesso ao contexto global
   const { authContextData, setAuthContextData } = useContext(AuthContext);
 
   useEffect(() => {

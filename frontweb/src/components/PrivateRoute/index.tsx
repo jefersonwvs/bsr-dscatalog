@@ -16,6 +16,8 @@ const PrivateRoute = function (props: Props) {
       path={path}
       render={({ location }) =>
         !isAuthenticated ? (
+          // Usuários não autenticados, ao tentarem acessar rotas protegidas,
+          // serão redirecionados para área de login.
           <Redirect
             to={{
               pathname: '/admin/auth/login',
@@ -23,8 +25,11 @@ const PrivateRoute = function (props: Props) {
             }}
           />
         ) : !hasAnyRoles(roles) ? (
+          // Usuários logados, quando não possuem as responsabilidades
+          // especificadas, são redirecionados para área administrativa comum.
           <Redirect to="/admin/products" />
         ) : (
+          // Usuários autenticados e autorizados acessam o recurso
           children
         )
       }

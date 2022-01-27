@@ -15,7 +15,7 @@ const PrivateRoute = function (props: Props) {
     <Route
       path={path}
       render={({ location }) =>
-        !isAuthenticated ? (
+        !isAuthenticated() ? (
           // Usuários não autenticados, ao tentarem acessar rotas protegidas,
           // serão redirecionados para área de login.
           <Redirect

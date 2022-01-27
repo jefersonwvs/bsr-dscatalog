@@ -17,6 +17,8 @@ const List = function () {
     categories: [
       { id: 1, name: 'Livros' },
       { id: 2, name: 'Educação' },
+      { id: 3, name: 'Literatura' },
+      { id: 4, name: 'Papéis' },
     ],
   };
 

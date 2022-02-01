@@ -10,7 +10,7 @@ import { getTokenData } from 'utils/auth';
 
 import './styles.css';
 
-type FormData = {
+type CredentialsDTO = {
   username: string;
   password: string;
 };
@@ -37,11 +37,11 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<CredentialsDTO>();
 
   const { from } = location.state || { from: { pathname: '/admin' } };
 
-  const onSubmit = function (formData: FormData) {
+  const onSubmit = function (formData: CredentialsDTO) {
     requestBackendLogin(formData)
       .then((response) => {
         saveAuthData(response.data as LoginResponse);

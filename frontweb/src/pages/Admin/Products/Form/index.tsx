@@ -1,11 +1,12 @@
 import { AxiosRequestConfig } from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
 import Select from 'react-select';
 
 import { Product } from 'types/product';
 import { requestBackend } from 'utils/requests';
+import { Category } from 'types/category';
 
 import './styles.css';
 
@@ -14,16 +15,18 @@ type UrlParams = {
 };
 
 const Form = function () {
-  const { productId } = useParams<UrlParams>();
+  //
   const history = useHistory();
+  const { productId } = useParams<UrlParams>();
+
+  const isEditing = productId !== 'create';
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
   } = useForm<Product>();
-
-  const isEditing = productId !== 'create';
 
   useEffect(() => {
     if (isEditing) {
@@ -46,6 +49,18 @@ const Form = function () {
         });
     }
   }, [isEditing, productId, setValue]);
+
+  const [categories, setCategories] = useState<Category[]>([]);
+  useEffect(() => {
+    const config: AxiosRequestConfig = {
+      method: 'GET',
+      url: '/categories',
+    };
+
+    requestBackend(config).then((response) => {
+      setCategories(response.data.content as Category[]);
+    });
+  });
 
   const onSubmit = function (formData: Product) {
     const data: Product = {
@@ -76,12 +91,6 @@ const Form = function () {
     history.push('/admin/products');
   };
 
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-  ];
-
   return (
     <div className="product-crud-container">
       <div className="base-card product-crud-form-card">
@@ -109,9 +118,11 @@ const Form = function () {
               <div className="margin-bottom-30">
                 <Select
                   classNamePrefix="product-crud-select"
-                  options={options}
+                  options={categories}
                   isMulti
                   placeholder="Selecione as categorias"
+                  getOptionLabel={(category: Category) => category.name}
+                  getOptionValue={(category: Category) => category.id + ''}
                 />
               </div>
 

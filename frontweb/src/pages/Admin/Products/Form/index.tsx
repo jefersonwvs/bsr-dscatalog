@@ -1,38 +1,69 @@
 import { AxiosRequestConfig } from 'axios';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { Product } from 'types/product';
 import { requestBackend } from 'utils/requests';
 
 import './styles.css';
 
+type UrlParams = {
+  productId: string;
+};
+
 const Form = function () {
+  const { productId } = useParams<UrlParams>();
+  const history = useHistory();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<Product>();
 
-  const history = useHistory();
+  const isEditing = productId !== 'create';
+
+  useEffect(() => {
+    if (isEditing) {
+      const config: AxiosRequestConfig = {
+        method: 'GET',
+        url: `/products/${productId}`,
+      };
+
+      requestBackend(config)
+        .then((response) => {
+          const product = response.data as Product;
+          setValue('name', product.name);
+          setValue('description', product.description);
+          setValue('price', product.price);
+          setValue('imgUrl', product.imgUrl);
+          setValue('categories', product.categories);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [isEditing, productId, setValue]);
 
   const onSubmit = function (formData: Product) {
     const data: Product = {
       ...formData,
-      categories: [{ id: 2, name: '' }],
-      imgUrl:
-        'https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/5-big.jpg',
+      categories: isEditing ? formData.categories : [{ id: 2, name: '' }],
+      imgUrl: isEditing
+        ? formData.imgUrl
+        : 'https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/5-big.jpg',
     };
 
     const config: AxiosRequestConfig = {
-      method: 'POST',
-      url: '/products',
+      method: isEditing ? 'PUT' : 'POST',
+      url: isEditing ? `/products/${productId}` : '/products',
       data,
       withCredentials: true,
     };
 
     requestBackend(config)
-      .then((response) => {
+      .then(() => {
         history.push('/admin/products');
       })
       .catch((error) => {

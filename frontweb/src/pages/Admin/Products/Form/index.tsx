@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
 import Select from 'react-select';
+import CurrencyInput from 'react-currency-input-field';
 
 import { Product } from 'types/product';
 import { requestBackend } from 'utils/requests';
@@ -61,13 +62,18 @@ const Form = function () {
     requestBackend(config).then((response) => {
       setCategories(response.data.content as Category[]);
     });
-  });
+  }, []);
 
   const onSubmit = function (formData: Product) {
+    const data = {
+      ...formData,
+      price: +String(formData.price).replace(',', '.'),
+    };
+
     const config: AxiosRequestConfig = {
       method: isEditing ? 'PUT' : 'POST',
       url: isEditing ? `/products/${productId}` : '/products',
-      data: formData,
+      data,
       withCredentials: true,
     };
 
@@ -133,23 +139,32 @@ const Form = function () {
               </div>
 
               <div className="margin-bottom-30">
-                <input
-                  {...register('price', {
-                    required: 'Campo obrigatório',
-                  })}
-                  type="text"
-                  className={`form-control base-input ${
-                    errors.name ? 'is-invalid' : ''
-                  }`}
-                  placeholder="Preço"
+                <Controller
                   name="price"
+                  rules={{
+                    required: 'Campo obrigatório',
+                  }}
+                  control={control}
+                  render={({ field }) => (
+                    <CurrencyInput
+                      placeholder="Preço"
+                      className={`form-control base-input ${
+                        errors.name ? 'is-invalid' : ''
+                      }`}
+                      decimalSeparator=","
+                      groupSeparator="."
+                      disableGroupSeparators={true}
+                      value={field.value}
+                      onValueChange={field.onChange}
+                    />
+                  )}
                 />
                 <div className="d-block invalid-feedback">
                   {errors.price?.message}
                 </div>
               </div>
 
-              <div className="margin-bottom-30">
+              <div className="">
                 <input
                   {...register('imgUrl', {
                     required: 'Campo obrigatório',
@@ -190,6 +205,7 @@ const Form = function () {
               </div>
             </div>
           </div>
+
           <div className="product-crud-form-buttons-container">
             <button
               className="btn btn-outline-danger product-crud-form-button"

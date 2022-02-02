@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
 import Select from 'react-select';
 
@@ -26,6 +26,7 @@ const Form = function () {
     handleSubmit,
     formState: { errors },
     setValue,
+    control,
   } = useForm<Product>();
 
   useEffect(() => {
@@ -116,17 +117,30 @@ const Form = function () {
               </div>
 
               <div className="margin-bottom-30">
-                <Select
-                  classNamePrefix="product-crud-select"
-                  options={categories}
-                  isMulti
-                  placeholder="Selecione as categorias"
-                  getOptionLabel={(category: Category) => category.name}
-                  getOptionValue={(category: Category) => category.id + ''}
+                <Controller
+                  name="categories"
+                  rules={{ required: true }}
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      classNamePrefix="product-crud-select"
+                      options={categories}
+                      isMulti
+                      placeholder="Selecione as categorias"
+                      getOptionLabel={(category: Category) => category.name}
+                      getOptionValue={(category: Category) => category.id + ''}
+                    />
+                  )}
                 />
+                {errors.categories && (
+                  <div className="d-block invalid-feedback">
+                    Campo obrigatório
+                  </div>
+                )}
               </div>
 
-              <div className="margin-bottom-30">
+              <div className="">
                 <input
                   {...register('price', {
                     required: 'Campo obrigatório',

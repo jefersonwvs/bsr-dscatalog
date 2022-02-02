@@ -35,6 +35,11 @@
   color: #fff;
 }
 
+.pagination-arrow-container {
+  display: flex;
+  align-items: center;
+}
+
 .arrow-previous {
   color: #407bff;
   transform: rotate(-180deg);

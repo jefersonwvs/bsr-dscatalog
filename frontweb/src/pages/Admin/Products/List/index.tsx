@@ -6,6 +6,7 @@ import ProductCrudCard from 'pages/Admin/Products/ProductCrudCard';
 import { SpringPage } from 'types/vendor/spring';
 import { Product } from 'types/product';
 import { requestBackend } from 'utils/requests';
+import Pagination from 'components/Pagination';
 
 import './styles.css';
 
@@ -48,6 +49,7 @@ const List = function () {
           </div>
         ))}
       </div>
+      <Pagination />
     </div>
   );
 };

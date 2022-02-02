@@ -33,7 +33,7 @@ const Form = function () {
 
     requestBackend(config)
       .then((response) => {
-        console.log(response.data as Product);
+        history.push('/admin/products');
       })
       .catch((error) => {
         console.error(error);

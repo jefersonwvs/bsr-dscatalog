@@ -64,18 +64,10 @@ const Form = function () {
   });
 
   const onSubmit = function (formData: Product) {
-    const data: Product = {
-      ...formData,
-      categories: isEditing ? formData.categories : [{ id: 2, name: '' }],
-      imgUrl: isEditing
-        ? formData.imgUrl
-        : 'https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/5-big.jpg',
-    };
-
     const config: AxiosRequestConfig = {
       method: isEditing ? 'PUT' : 'POST',
       url: isEditing ? `/products/${productId}` : '/products',
-      data,
+      data: formData,
       withCredentials: true,
     };
 
@@ -140,7 +132,7 @@ const Form = function () {
                 )}
               </div>
 
-              <div className="">
+              <div className="margin-bottom-30">
                 <input
                   {...register('price', {
                     required: 'Campo obrigatório',
@@ -156,7 +148,29 @@ const Form = function () {
                   {errors.price?.message}
                 </div>
               </div>
+
+              <div className="margin-bottom-30">
+                <input
+                  {...register('imgUrl', {
+                    required: 'Campo obrigatório',
+                    pattern: {
+                      value: /^(https?|chrome):\/\/[^\s$.?#].[^\s]*$/gm,
+                      message: 'URL inválida',
+                    },
+                  })}
+                  type="text"
+                  className={`form-control base-input ${
+                    errors.name ? 'is-invalid' : ''
+                  }`}
+                  placeholder="URL da imagem do produto"
+                  name="imgUrl"
+                />
+                <div className="d-block invalid-feedback">
+                  {errors.imgUrl?.message}
+                </div>
+              </div>
             </div>
+
             <div className="col-lg-6">
               <div className="">
                 <textarea

@@ -12,7 +12,7 @@ import './styles.css';
 const List = function () {
   const [page, setPage] = useState<SpringPage<Product>>();
 
-  useEffect(() => {
+  const getProducts = function () {
     const config: AxiosRequestConfig = {
       method: 'GET',
       url: '/products',
@@ -25,6 +25,10 @@ const List = function () {
     requestBackend(config).then((response) => {
       setPage(response.data as SpringPage<Product>);
     });
+  };
+
+  useEffect(() => {
+    getProducts();
   }, []);
 
   return (
@@ -40,7 +44,7 @@ const List = function () {
       <div className="row">
         {page?.content.map((product) => (
           <div className="col-sm-6 col-md-12" key={product.id}>
-            <ProductCrudCard product={product} />
+            <ProductCrudCard product={product} onDelete={() => getProducts()} />
           </div>
         ))}
       </div>

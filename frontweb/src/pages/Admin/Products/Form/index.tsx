@@ -2,6 +2,7 @@ import { AxiosRequestConfig } from 'axios';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
+import Select from 'react-select';
 
 import { Product } from 'types/product';
 import { requestBackend } from 'utils/requests';
@@ -75,6 +76,12 @@ const Form = function () {
     history.push('/admin/products');
   };
 
+  const options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
+  ];
+
   return (
     <div className="product-crud-container">
       <div className="base-card product-crud-form-card">
@@ -100,6 +107,15 @@ const Form = function () {
               </div>
 
               <div className="margin-bottom-30">
+                <Select
+                  classNamePrefix="product-crud-select"
+                  options={options}
+                  isMulti
+                  placeholder="Selecione as categorias"
+                />
+              </div>
+
+              <div className="margin-bottom-30">
                 <input
                   {...register('price', {
                     required: 'Campo obrigatório',
@@ -114,9 +130,6 @@ const Form = function () {
                 <div className="d-block invalid-feedback">
                   {errors.price?.message}
                 </div>
-              </div>
-              <div className="">
-                <input type="text" className="form-control base-input" />
               </div>
             </div>
             <div className="col-lg-6">

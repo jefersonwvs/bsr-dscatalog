@@ -9,13 +9,19 @@ import { requestBackend } from 'utils/requests';
 
 import './styles.css';
 
-type ProductFilterData = {
+export type ProductFilterData = {
   name: string;
   category: Category | null;
 };
 
-const ProductFilter = function () //
-{
+type Props = {
+  onSubmitFilter: (data: ProductFilterData) => void;
+};
+
+const ProductFilter = function (props: Props) {
+  //
+  const { onSubmitFilter } = props;
+
   const { register, handleSubmit, setValue, getValues, control } =
     useForm<ProductFilterData>();
 
@@ -32,17 +38,18 @@ const ProductFilter = function () //
   }, []);
 
   const onSubmit = function (formData: ProductFilterData) {
-    console.log('Enviou: ', formData);
+    onSubmitFilter(formData);
   };
 
   const handleChangeCategory = function (value: Category) {
     setValue('category', value);
 
-    const obj: ProductFilterData = {
+    const formData: ProductFilterData = {
       name: getValues('name'),
       category: getValues('category'),
     };
-    console.log('Enviou: ', obj);
+
+    onSubmitFilter(formData);
   };
 
   const handleFormClear = function () {

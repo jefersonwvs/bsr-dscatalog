@@ -11,12 +11,13 @@ import './styles.css';
 
 type ProductFilterData = {
   name: string;
-  category: Category;
+  category: Category | null;
 };
 
 const ProductFilter = function () //
 {
-  const { register, handleSubmit, control } = useForm<ProductFilterData>();
+  const { register, handleSubmit, setValue, getValues, control } =
+    useForm<ProductFilterData>();
 
   const [categories, setCategories] = useState<Category[]>([]);
   useEffect(() => {
@@ -32,6 +33,21 @@ const ProductFilter = function () //
 
   const onSubmit = function (formData: ProductFilterData) {
     console.log('Enviou: ', formData);
+  };
+
+  const handleChangeCategory = function (value: Category) {
+    setValue('category', value);
+
+    const obj: ProductFilterData = {
+      name: getValues('name'),
+      category: getValues('category'),
+    };
+    console.log('Enviou: ', obj);
+  };
+
+  const handleFormClear = function () {
+    setValue('name', '');
+    setValue('category', null);
   };
 
   return (
@@ -63,11 +79,15 @@ const ProductFilter = function () //
                   getOptionLabel={(category: Category) => category.name}
                   getOptionValue={(category: Category) => category.id + ''}
                   isClearable
+                  onChange={(value) => handleChangeCategory(value as Category)}
                 />
               )}
             />
           </div>
-          <button className="btn btn-outline-secondary product-filter-btn-clear">
+          <button
+            className="btn btn-outline-secondary product-filter-btn-clear"
+            onClick={handleFormClear}
+          >
             LIMPAR<span className="product-filter-btn-word"> FILTRO</span>
           </button>
         </div>

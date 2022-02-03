@@ -46,8 +46,8 @@
 .product-crud-form-button {
   height: 50px;
   width: 110px;
-  border-radius: 10px;
-  font-weight: bold;
+  border-radius: 10px !important;
+  font-weight: bold !important;
 }
 
 @media (min-width: 576px) {

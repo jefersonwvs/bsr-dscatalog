@@ -6,9 +6,9 @@
 .btn-crud-add {
   width: 100%;
   height: 50px;
-  border-radius: 10px;
+  border-radius: 10px !important;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: bold !important;
   letter-spacing: -0.015em;
   margin-bottom: 20px;
 }
@@ -16,7 +16,7 @@
 @media (min-width: 768px) {
   .product-crud-bar-container {
     display: flex;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
   }
 
   .btn-crud-add {

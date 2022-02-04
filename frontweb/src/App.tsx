@@ -1,9 +1,11 @@
 import Routes from 'Routes';
 import { useState } from 'react';
+import { ToastContainer } from 'react-toastify';
 
 import { AuthContext, AuthContextData } from 'AuthContext';
 
 import './assets/styles/custom.scss'; // bootstrap theme
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css'; // global styles
 
 function App() {
@@ -21,6 +23,7 @@ function App() {
      */
     <AuthContext.Provider value={{ authContextData, setAuthContextData }}>
       <Routes />
+      <ToastContainer />
     </AuthContext.Provider>
   );
 }

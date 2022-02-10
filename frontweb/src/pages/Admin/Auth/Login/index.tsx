@@ -6,7 +6,7 @@ import ButtonIcon from 'components/ButtonIcon';
 import { AuthContext } from 'AuthContext';
 import { requestBackendLogin } from 'utils/requests';
 import { LoginResponse, saveAuthData } from 'utils/storage';
-import { getTokenData } from 'utils/auth';
+import { getTokenData } from 'utils/token';
 
 import './styles.css';
 

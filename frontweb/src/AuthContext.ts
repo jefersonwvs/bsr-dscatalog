@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import { TokenData } from 'utils/auth';
+import { TokenData } from 'utils/token';
 
 /**
  * Tipo de dados que armazena uma flag de autenticação

@@ -1,35 +1,5 @@
-import jwtDecode from 'jwt-decode';
-
-import { getAuthData } from './storage';
-
-/**
- * `Role` - tipo de responsabilidade desempenhada
- * por um `user` do sistema.
- */
-export type Role = 'ROLE_OPERATOR' | 'ROLE_ADMIN';
-
-/**
- * `TokenData` dados extraídos da decodificação do
- * token gerado na autenticação.
- */
-export type TokenData = {
-  exp: number;
-  user_name: string;
-  authorities: Role[];
-};
-
-/**
- * Função que decodifica o token e o retorna estruturado de acordo
- * com o tipo `TokenData` ou retorna `undefined` quando não existe
- * token armazenado no `localStorage`.
- */
-export const getTokenData = function (): TokenData | undefined {
-  try {
-    return jwtDecode(getAuthData().access_token) as TokenData;
-  } catch (error) {
-    return undefined;
-  }
-};
+import { Role } from 'types/role';
+import { getTokenData } from './token';
 
 /**
  * Função que verifica se um `user` está autenticado e se sua

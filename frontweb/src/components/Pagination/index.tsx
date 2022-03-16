@@ -23,13 +23,16 @@ const Pagination = function (props: Props) {
       breakClassName="pagination-item"
       disabledClassName="arrow-inactive"
       previousLabel={
-        <div className="pagination-arrow-container">
+        <div
+          className="pagination-arrow-container"
+          data-testid="arrow-previous"
+        >
           <ArrowIcon />
         </div>
       }
       previousClassName="arrow-previous"
       nextLabel={
-        <div className="pagination-arrow-container">
+        <div className="pagination-arrow-container" data-testid="arrow-next">
           <ArrowIcon />
         </div>
       }

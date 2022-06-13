@@ -72,4 +72,40 @@ describe('Product form create tests', () => {
       expect(messages).toHaveLength(5);
     });
   });
+
+  test('should clear validation messages when filling out the form correctly', async () => {
+    render(
+      <Router history={history}>
+        <Form />
+      </Router>
+    );
+
+    const submitButton = screen.getByRole('button', { name: /salvar/i });
+    userEvent.click(submitButton);
+
+    await waitFor(() => {
+      const messages = screen.getAllByText('Campo obrigatório');
+      expect(messages).toHaveLength(5);
+    });
+
+    const nameInput = screen.getByTestId('name');
+    const categoriesInput = screen.getByLabelText('Categorias');
+    const priceInput = screen.getByTestId('price');
+    const imgUrlInput = screen.getByTestId('imgUrl');
+    const descriptionInput = screen.getByTestId('description');
+
+    await selectEvent.select(categoriesInput, ['Eletrônicos', 'Computadores']);
+    userEvent.type(nameInput, 'Computador');
+    userEvent.type(priceInput, '3470.89');
+    userEvent.type(
+      imgUrlInput,
+      'https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/desktops/optiplex-desktops/3090-mt-sff/media-gallery/desktop_optiplex_3090mt_sff_gallery_7.psd?fmt=pjpg&pscan=auto&scl=1&hei=402&wid=372&qlt=100,0&resMode=sharp2&size=372,402'
+    );
+    userEvent.type(descriptionInput, 'OptiPlex 3090 Small Desktop');
+
+    await waitFor(() => {
+      const messages = screen.queryAllByText('Campo obrigatório');
+      expect(messages).toHaveLength(0);
+    });
+  });
 });

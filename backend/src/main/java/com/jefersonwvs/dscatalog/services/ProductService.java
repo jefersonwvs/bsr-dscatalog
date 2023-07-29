@@ -28,13 +28,13 @@ public class ProductService {
 
 	@Autowired
 	private ProductRepository repository;
-	
+
 	@Autowired
 	private CategoryRepository categoryRepository;
 
 	@Transactional(readOnly = true)
 	public Page<ProductDTO> findAllPaged(Pageable pageable, Long categoryId, String name) {
-		List<Category> categories = (categoryId == 0 ) ? null : Arrays.asList(categoryRepository.getOne(categoryId));
+		List<Category> categories = (categoryId == 0) ? null : Arrays.asList(categoryRepository.getOne(categoryId));
 		/* Busca todos os produtos de uma dada categoria. Porém, a categoria não vem anexada*/
 		Page<Product> page = repository.findAllPaged(categories, name, pageable);
 		/* Chamada seca que busca as categorias dos produtos todas de uma só vez,
@@ -79,19 +79,19 @@ public class ProductService {
 			throw new DatabaseException("Violação de integridade!");
 		}
 	}
-	
+
 	private void copyDtoToEntity(ProductDTO dto, Product entity) {
 		entity.setName(dto.getName());
 		entity.setDescription(dto.getDescription());
 		entity.setDate(dto.getDate());
 		entity.setImgUrl(dto.getImgUrl());
 		entity.setPrice(dto.getPrice());
-		
+
 		entity.getCategories().clear();
 		for (CategoryDTO catDto : dto.getCategories()) {
 			Category category = categoryRepository.getOne(catDto.getId());
 			entity.getCategories().add(category);
 		}
 	}
-	
+
 }

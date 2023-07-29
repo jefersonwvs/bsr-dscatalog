@@ -14,17 +14,11 @@ import com.jefersonwvs.dscatalog.entities.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-	@Query(value = "SELECT DISTINCT obj "
-					 + "FROM Product obj "
-					 + "INNER JOIN obj.categories cats "
-					 + "WHERE (COALESCE(:categories) IS NULL OR cats IN :categories) "
-					 + "AND (LOWER(obj.name) LIKE LOWER(CONCAT('%', :name, '%')))")
+	@Query(value = "SELECT DISTINCT obj FROM Product obj INNER JOIN obj.categories cats "
+		+ "WHERE (COALESCE(:categories) IS NULL OR cats IN :categories) AND (LOWER(obj.name) LIKE LOWER(CONCAT('%', :name, '%')))")
 	Page<Product> findAllPaged(List<Category> categories, String name, Pageable pageable);
-	
-	@Query(value = "SELECT obj "
-					 + "FROM Product obj "
-					 + "JOIN FETCH obj.categories "
-					 + "WHERE obj IN :products")
+
+	@Query(value = "SELECT obj FROM Product obj JOIN FETCH obj.categories WHERE obj IN :products")
 	List<Product> findProductCategories(List<Product> products);
 
 }

@@ -14,31 +14,31 @@ import com.jefersonwvs.dscatalog.entities.User;
 import com.jefersonwvs.dscatalog.repositories.UserRepository;
 
 public class UserInsertValidator implements ConstraintValidator<UserInsertValid, UserInsertDTO> {
-	
+
 	@Autowired
 	private UserRepository repository;
-	
+
 	@Override
 	public void initialize(UserInsertValid ann) {
 	}
 
 	@Override
 	public boolean isValid(UserInsertDTO dto, ConstraintValidatorContext context) {
-		
+
 		List<FieldMessage> list = new ArrayList<>();
-		
+
 		User user = repository.findByEmail(dto.getEmail());
 		if (user != null) {
 			list.add(new FieldMessage("email", "Email já cadastrado"));
 		}
-		
+
 		/* Adiciona erros personalizados na lista de erros padrão do Beans Validation */
 		for (FieldMessage e : list) {
 			context.disableDefaultConstraintViolation();
 			context.buildConstraintViolationWithTemplate(e.getMessage()).addPropertyNode(e.getFieldName())
-					.addConstraintViolation();
+				.addConstraintViolation();
 		}
 		return list.isEmpty();
 	}
-	
+
 }

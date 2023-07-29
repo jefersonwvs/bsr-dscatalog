@@ -32,17 +32,17 @@ import com.jefersonwvs.dscatalog.services.exceptions.ResourceNotFoundException;
 @Service
 public class UserService implements UserDetailsService {
 
-	private static Logger logger = LoggerFactory.getLogger(UserService.class);
-	
+	private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+
 	@Autowired
 	private UserRepository repository;
-	
+
 	@Autowired
 	private RoleRepository roleRepository;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-	
+
 	@Transactional(readOnly = true)
 	public Page<UserDTO> findAllPaged(Pageable pageable) {
 		Page<User> list = repository.findAll(pageable);
@@ -86,18 +86,6 @@ public class UserService implements UserDetailsService {
 			throw new DatabaseException("Violação de integridade!");
 		}
 	}
-	
-	private void copyDtoToEntity(UserDTO dto, User entity) {
-		entity.setFirstName(dto.getFirstName());
-		entity.setLastName(dto.getLastName());
-		entity.setEmail(dto.getEmail());
-		
-		entity.getRoles().clear();
-		for (RoleDTO obj : dto.getRoles()) {
-			Role role = roleRepository.getOne(obj.getId());
-			entity.getRoles().add(role);
-		}
-	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) {
@@ -109,5 +97,17 @@ public class UserService implements UserDetailsService {
 		logger.info("Usuário encontrado: " + username);
 		return user;
 	}
-	
+
+	private void copyDtoToEntity(UserDTO dto, User entity) {
+		entity.setFirstName(dto.getFirstName());
+		entity.setLastName(dto.getLastName());
+		entity.setEmail(dto.getEmail());
+
+		entity.getRoles().clear();
+		for (RoleDTO obj : dto.getRoles()) {
+			Role role = roleRepository.getOne(obj.getId());
+			entity.getRoles().add(role);
+		}
+	}
+
 }
